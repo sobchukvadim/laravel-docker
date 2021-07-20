@@ -24,7 +24,9 @@ services:
       - ./:/var/www/laravel
   mysql:
     container_name: laravel-mysql
-    image: mysql:8.0.26
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
     ports:
       - 33062:3306
     environment:
@@ -33,5 +35,4 @@ services:
       - MYSQL_USER=laravel
       - MYSQL_PASSWORD=qwerty
     volumes:
-      - ./docker/mysql/config:/etc/mysql/conf.d:ro
       - ./docker/mysql/data:/var/lib/mysql
