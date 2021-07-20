@@ -5,9 +5,10 @@ services:
     container_name: laravel-nginx
     image: nginx:1.17-alpine
     ports:
-      - 8098:80
+      - 8002:80
     depends_on:
       - fpm
+      - mysql
     volumes:
       - ./:/var/www/laravel
       - ./docker/nginx/logs:/var/log/nginx
@@ -25,7 +26,11 @@ services:
     container_name: laravel-mysql
     image: mysql:8.0
     ports:
-      - 33061:3306
+      - 33062:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=laravel
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=qwerty
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
